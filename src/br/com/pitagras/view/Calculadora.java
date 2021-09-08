@@ -25,7 +25,7 @@ public class Calculadora {
         jFrameTelaPrincipal.setLayout(null);
         jFrameTelaPrincipal.setSize(300, 400);
 
-        // Inst√¢ncia dos componentes
+        // Inst„ncia dos componentes
         jLabelResultado = new JTextField("Resultado");
         jLabelResultado.setEditable(false);
         jLabelValorA = new JLabel("Valor A:");
@@ -83,6 +83,24 @@ public class Calculadora {
                     }
                 }
         );
+        
+        jButtonMul.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        executarOperacao(actionEvent.getActionCommand());
+                    }
+                }
+        );
+        
+        jButtonDiv.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        executarOperacao(actionEvent.getActionCommand());
+                    }
+                }
+        );
 
 
         jFrameTelaPrincipal.add(jLabelResultado);
@@ -101,20 +119,34 @@ public class Calculadora {
     }
 
     private void executarOperacao(String actionCommand) {
-        BigDecimal valorA = new BigDecimal(jTextFieldValorA.getText());
-        BigDecimal valorB = new BigDecimal(jTextFieldValorB.getText());
-        BigDecimal resultado;
-        switch (actionCommand) {
-            case "+":
-                resultado = valorA.add(valorB);
-                jLabelResultado.setText("" + resultado);
-                break;
-            case "-":
-                resultado = valorA.subtract(valorB);
-                jLabelResultado.setText("" + resultado);
-                break;
-
-        }
+    	try {
+    		BigDecimal valorA = new BigDecimal(jTextFieldValorA.getText());
+	        BigDecimal valorB = new BigDecimal(jTextFieldValorB.getText());
+	        BigDecimal resultado;
+	        switch (actionCommand) {
+	            case "+":
+	                resultado = valorA.add(valorB);
+	                jLabelResultado.setText("" + resultado);
+	                break;
+	            case "-":
+	                resultado = valorA.subtract(valorB);
+	                jLabelResultado.setText("" + resultado);
+	                break;
+	            case "*":
+	                resultado = valorA.multiply(valorB);
+	                jLabelResultado.setText("" + resultado);
+	                break;
+	            case "/":
+	                resultado = valorA.divide(valorB);
+	                jLabelResultado.setText("" + resultado);
+	                break;
+	
+	        }
+    	}catch(java.lang.NumberFormatException e) {
+    		jLabelResultado.setText("Erro:Valores devem ser numeros");
+    	}catch(java.lang.ArithmeticException e) {
+    		jLabelResultado.setText("Erro:Divisao por zero");
+    	}
     }
 
 //    private void acaoBotaoAdd() {
@@ -132,7 +164,7 @@ public class Calculadora {
 //    }
 
     private void acaoBotaoLimpar() {
-        jLabelResultado.setText("Informe os valores para realizar a opera√ß√£o");
+        jLabelResultado.setText("Informe os valores para realizar a operaÁ„o");
         jTextFieldValorA.setText("");
         jTextFieldValorB.setText("");
     }
